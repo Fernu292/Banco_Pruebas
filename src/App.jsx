@@ -1,9 +1,13 @@
 import React from "react";
+import "./Styles/App.scss";
+
+
+import Header from "./Layout/Header";
 
 const App = () => {
     return ( 
         <>
-            <h1>Hola Mundo desde Arch linux</h1>
+            <Header />
         </>
     );
 }
