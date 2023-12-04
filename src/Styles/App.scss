@@ -5,5 +5,16 @@ html {
     background-color: $BgColor;
     font-family: 'Roboto', sans-serif;
     color: white;
+    scroll-behavior: smooth;
 }
 
+body{
+    margin: 0;
+    padding: 0;
+    height: 975px;
+}
+
+.App {
+    display: flex;
+    gap: 2rem;
+}

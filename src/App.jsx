@@ -1,14 +1,20 @@
-import React from "react";
+import React, {useState} from "react";
 import "./Styles/App.scss";
 
-
-import Header from "./Layout/Header";
+//Layouts
+import SideBar from "./Layout/SideBar";
+import EmpujeSerial from "./Layout/Empuje-T";
 
 const App = () => {
+
+  
     return ( 
-        <>
-            <Header />
-        </>
+        <div className="App">
+            <SideBar />
+            <div className="Content">
+                <EmpujeSerial />
+            </div>
+        </div>
     );
 }
  

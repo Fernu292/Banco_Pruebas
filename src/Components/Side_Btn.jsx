@@ -2,8 +2,8 @@ import React from 'react';
 
 const S_Button = ({text}) => {
     return (  
-        <button>
-            {}
+        <button className='Side_Btn'>
+            {text}
         </button>
     );
 }
