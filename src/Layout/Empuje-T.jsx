@@ -9,7 +9,7 @@ const EmpujeSerial = () => {
     <div>
       <Header />
       <h2>Empuje serial en PSI del banco de pruebas</h2>
-      <LinearPlot data={data} id={'#Empuje'} xLabel={'Tiempo[s]'} yLabel={'Empuje [Kg]'} />
+      <LinearPlot data={data} id={'Empuje'} xLabel={'Tiempo[s]'} yLabel={'Empuje [Kg]'} />
     </div>
   );
 };
