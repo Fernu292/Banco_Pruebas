@@ -10,7 +10,7 @@ const EstacionContext_Provider = ({children}) => {
     useEffect(()=>{
         setTimeout(()=>{
             setTime(time+1);
-        },1000);//Time 1s 
+        },50);//Time 0.05s 
     });
 
 
