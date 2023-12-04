@@ -3,7 +3,9 @@ import React, { useEffect } from "react";
 
 const LinearPlot = ({ data, id, xLabel, yLabel }) => {
 
-  console.log(data);
+  if(data.length==0){
+    return <></>
+  }
 
   useEffect(() => {
     // LinearPlot properties
@@ -28,13 +30,17 @@ const LinearPlot = ({ data, id, xLabel, yLabel }) => {
       .y((d, i) => yScale(d))
       .curve(d3.curveMonotoneX);
 
-    const svg = d3
+    let svg = d3
       .select(`#${id}`)
-      .append("svg")
-      .attr("width", svgElementProps.width + svgElementProps.margin.left + svgElementProps.margin.right)
-      .attr("height", svgElementProps.height + svgElementProps.margin.top + svgElementProps.margin.bottom)
-      .append("g")
-      .attr("transform", `translate(${svgElementProps.margin.left}, ${svgElementProps.margin.top})`);
+      
+    svg.selectAll("*").remove();
+
+    svg = d3.select(`#${id}`)
+    .append("svg")
+    .attr("width", svgElementProps.width + svgElementProps.margin.left + svgElementProps.margin.right)
+    .attr("height", svgElementProps.height + svgElementProps.margin.top + svgElementProps.margin.bottom)
+    .append("g")
+    .attr("transform", `translate(${svgElementProps.margin.left}, ${svgElementProps.margin.top})`);
 
     // Adding axis
     svg.append("g").attr("class", "x-axis").attr("transform", `translate(0, ${svgElementProps.height})`).call(xAxis);

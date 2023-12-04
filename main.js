@@ -1,5 +1,6 @@
 const {app, BrowserWindow, globalShortcut} = require('electron');
 
+
 const createWindow = (file) => {
     const window = new BrowserWindow( {
         width: 1820,
