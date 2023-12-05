@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import "./Styles/App.scss";
-import data_serial from "../server/Data/datos_serial.json";
 
 //Layouts
 import SideBar from "./Layout/SideBar";

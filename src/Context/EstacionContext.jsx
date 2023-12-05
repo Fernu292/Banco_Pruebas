@@ -1,6 +1,5 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { createContext, useState, useEffect } from 'react';
-import data_serial from "../../server/Data/datos_serial.json";
 import axios from 'axios';
 export const EstacionContext = createContext(null);
 
@@ -10,22 +9,24 @@ const EstacionContext_Provider = ({children}) => {
 
     const [time, setTime] = useState(0);
     const [empuje, setEmpuje] = useState([]);
+    const [init, setInit] = useState(false);
 
     const fetchData = async()=>{
         const resonse = await axios.get(serverURL);
         const data = await resonse.data;
         setEmpuje([...data]);
-        console.log(resonse.data.length);
     }
 
-    console.log(empuje);
+    if(init){
+       console.log(init);
+    }
 
     useEffect(()=>{
         const intervalID = setInterval(()=>{
             fetchData();
         },50);
         return ()=> clearInterval(intervalID);
-    }, []);
+    }, [empuje]);
 
     useEffect(()=>{
         setTimeout(()=>{
@@ -38,9 +39,10 @@ const EstacionContext_Provider = ({children}) => {
             value={{
                 time,
                 setTime,
-                data_serial,
                 empuje,
-                setEmpuje
+                setEmpuje,
+                init, 
+                setInit
             }}
         >
             {children}

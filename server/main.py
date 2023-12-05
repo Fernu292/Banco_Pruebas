@@ -2,6 +2,8 @@ import serial
 from flask import Flask, jsonify
 from flask_cors import CORS
 import threading
+import pandas as pd
+from datetime import datetime
 
 app = Flask(__name__)
 CORS(app) # Permitir solicitudes desde cualquier origien
@@ -26,6 +28,11 @@ def read_serial():
     except Exception as e:
         print(f'Error en el hulo de la lectura serial: {e}')
     finally:
+        
+        data_dict = {"distance": data_list}
+        df = pd.DataFrame(data_dict)
+        
+        df.to_csv(f"/home/fernu/Projects/Estacion_Terrena_Electron/server/Data/{datetime.now()}.cvs")        
         ser.close()
 
 @app.route('/api/data', methods=['GET'])
