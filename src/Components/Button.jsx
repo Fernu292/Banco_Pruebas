@@ -1,11 +1,13 @@
 import React from 'react';
 import "../Styles/Button.scss";
 
-const Button = ({text, tool=null, argument}) => {
+const Button = ({text, onClickAction, value}) => {
+
+
     return (  
         <button 
             className='Button'
-            onClick={()=>tool(argument)}
+            onClick={onClickAction(value)}
         >
             {text}
         </button>

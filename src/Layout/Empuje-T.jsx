@@ -6,28 +6,27 @@ import "../Styles/Empuje.scss";
 
 const EmpujeSerial = () => {
 
-  const {empuje, setInit, init} = useContext(EstacionContext);
-  
-  const InitSimulation = () =>{
-    setInit(!init);
-  }
+  const {empuje, setInit, init, time} = useContext(EstacionContext);
+  const [clicks, setClicks] = useState(0);
 
   return (
     <div>
       <div>
         <h2>Empuje serial en N del banco de pruebas</h2>
         <div className='botones-Empuje'>
-          <Button 
-            text={"Iniciar Prueba"} 
-            tool={InitSimulation}
-            argument={init}  
-          />
-          <Button 
-            text={"Parar Prueba"} 
-            tool={InitSimulation}
-            argument={init}  
-          />
+            <button 
+              className='Button'
+              onClick={()=>{
+                setInit(!init)
+                setClicks(clicks+1)
+              }} 
+              disabled={(clicks>=2) ? true : false}
+            >
+              Iniciar/Parar
+            </button>
         </div>
+        <p>{clicks}</p>
+        <p>Empujes: {empuje.length}</p>
       </div>
       <LinearPlot data={empuje} id={'Empuje'} xLabel={'Tiempo[s]'} yLabel={'Empuje [Kg]'} />
     </div>

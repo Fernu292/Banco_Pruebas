@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import "./Styles/App.scss";
+import "./Styles/Button.scss";
 
 //Layouts
 import SideBar from "./Layout/SideBar";
