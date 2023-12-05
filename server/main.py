@@ -32,7 +32,7 @@ def read_serial():
         data_dict = {"distance": data_list}
         df = pd.DataFrame(data_dict)
         
-        df.to_csv(f"/home/fernu/Projects/Estacion_Terrena_Electron/server/Data/{datetime.now()}.cvs")        
+        df.to_csv(f"/home/fernu/Projects/Estacion_Terrena_Electron/server/Data/{datetime.now()}_PruebaBanco.cvs")        
         ser.close()
 
 @app.route('/api/data', methods=['GET'])

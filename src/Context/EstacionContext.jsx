@@ -17,10 +17,6 @@ const EstacionContext_Provider = ({children}) => {
         setEmpuje([...data]);
     }
 
-    if(init){
-       console.log(init);
-    }
-
     useEffect(()=>{
         const intervalID = setInterval(()=>{
             fetchData();

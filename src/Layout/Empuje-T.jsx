@@ -15,7 +15,7 @@ const EmpujeSerial = () => {
   return (
     <div>
       <div>
-        <h2>Empuje serial en PSI del banco de pruebas</h2>
+        <h2>Empuje serial en N del banco de pruebas</h2>
         <div className='botones-Empuje'>
           <Button 
             text={"Iniciar Prueba"} 
