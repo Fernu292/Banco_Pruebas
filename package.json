@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack serve",
     "build": "webpack --mode production",
-    "start": "npm run build && electron ."
+    "start": "npm run build && electron .",
+    "package": "electron-packager . --platform=win32 --arch=x64 --out=build"
   },
   "keywords": [
     "Electron",
@@ -47,6 +48,7 @@
   },
   "dependencies": {
     "axios": "^1.6.2",
+    "electron-packager": "^17.1.2",
     "electron-squirrel-startup": "^1.0.0",
     "node-fetch": "^3.3.2",
     "webpack-dev-server": "^4.15.1"

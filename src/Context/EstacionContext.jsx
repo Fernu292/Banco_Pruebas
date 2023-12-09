@@ -8,9 +8,12 @@ const serverURL = "http://127.0.0.1:5000/api/data";
 const EstacionContext_Provider = ({children}) => {
 
     const [time, setTime] = useState(0);
+    const [times, setTimes] = useState([0]);
     const [empuje, setEmpuje] = useState([0]);
     const [init, setInit] = useState(false);
     const [serverInit, setServer] = useState(false);
+    const [clicks, setClicks] = useState(0);
+    const [isSave, setSave] = useState(false);
 
     const fetchData = async()=>{
         try{
@@ -32,39 +35,64 @@ const EstacionContext_Provider = ({children}) => {
         }
     }
 
+    const cleanData = async()=>{
+        try{
+            const clearData = await axios.post(`${serverURL}/restart`);
+            const data = await clearData.data;
+            setEmpuje([...data]);
+        }catch(error) {
+            console.log("Error restarting data to the server: ", error.message);
+            return 1;
+        }
+    }
+
+    /*
+    const saveData = async ()=>{
+        try {
+            const saveDataState = await axios.post(`${serverURL}/save_data`);
+        }
+    }
+    */
+
     useEffect(()=>{
         if (init){
             setServer(postState());
+            if(clicks==1){
+                const timeOutClean = setTimeout(()=>{
+                    cleanData();
+                },55);
+                return ()=> clearTimeout(timeOutClean);
+            }
         }
-    },[init]);
+    },[init, clicks]);
 
 
     useEffect(()=>{
         if(init && serverInit){
             const intervalID = setInterval(()=>{
-                fetchData();
-            },50);
+                fetchData();              
+                setTime((before)=>before+1);
+                setTimes([...times, time]);
+            },10);
             return ()=> clearInterval(intervalID);
         }
-    }, [empuje, init, serverInit]);
-
-    useEffect(()=>{
-        if(init && serverInit){
-            setTimeout(()=>{
-                setTime(time+1);
-            },50);//Time 0.05s
-        } 
-    },[time, init, serverInit]);
+    }, [init, serverInit, time]);
 
     return (
         <EstacionContext.Provider
             value={{
                 time,
                 setTime,
+                times,
+                setTimes,
                 empuje,
                 setEmpuje,
                 init, 
-                setInit
+                setInit,
+                clicks,
+                setClicks,
+                isSave,
+                setSave
             }}
         >
             {children}

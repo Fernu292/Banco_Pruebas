@@ -1,13 +1,15 @@
 import React, { useEffect, useRef, useState, useContext } from 'react';
 import { EstacionContext } from '../Context/EstacionContext';
 import LinearPlot from '../Components/LinePlot';
-import Button from '../Components/Button';
 import "../Styles/Empuje.scss";
 
 const EmpujeSerial = () => {
 
-  const {empuje, setInit, init, time} = useContext(EstacionContext);
-  const [clicks, setClicks] = useState(0);
+  const {
+    empuje, times, setInit, 
+    init, clicks, setClicks,
+    isSave, setSave
+  } = useContext(EstacionContext);
 
   return (
     <div>
@@ -24,11 +26,18 @@ const EmpujeSerial = () => {
             >
               Iniciar/Parar
             </button>
+
+            <button 
+              className='Button'
+              onClick={()=>setSave(!isSave)}
+            >
+                Guardar
+            </button>
         </div>
-        <p>{clicks}</p>
-        <p>Empujes: {empuje.length}</p>
       </div>
-      <LinearPlot data={empuje} id={'Empuje'} xLabel={'Tiempo[s]'} yLabel={'Empuje [Kg]'} />
+      <p>Empujes: {empuje.length}</p>
+      <p>Tiempos: {times.length}</p>
+      <LinearPlot data={empuje} xData={times} id={'Empuje'} xLabel={'Tiempo[ms]'} yLabel={'Empuje [Kg]'} />
     </div>
   );
 };

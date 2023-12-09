@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { EstacionContext } from '../Context/EstacionContext';
 import "../Styles/Header.scss";
 
@@ -14,7 +14,7 @@ const Header = () => {
             </div>
 
             <div className="Counter" id="counter">
-                {time}
+                {time/100}
             </div>
         </div>
     );

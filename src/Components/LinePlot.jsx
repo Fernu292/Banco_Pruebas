@@ -1,7 +1,7 @@
 import * as d3 from "d3";
 import React, { useEffect } from "react";
 
-const LinearPlot = ({ data, id, xLabel, yLabel }) => {
+const LinearPlot = ({ data, xData, id, xLabel, yLabel }) => {
 
   if(data.length==0){
     return <></>
@@ -16,7 +16,7 @@ const LinearPlot = ({ data, id, xLabel, yLabel }) => {
     };
 
     // Scales
-    const xScale = d3.scaleLinear().domain([0, data.length]).range([0, svgElementProps.width]);
+    const xScale = d3.scaleLinear().domain([0, data.length+20]).range([0, svgElementProps.width]);
     const yScale = d3.scaleLinear().domain([0 - 5, d3.max(data) + 10]).range([svgElementProps.height, 0]);
 
     // Axis

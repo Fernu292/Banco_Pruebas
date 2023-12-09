@@ -17,7 +17,7 @@ void loop() {
 
   // put your main code here, to run repeatedly:
   digitalWrite(Trigger, HIGH);
-  delayMicroseconds(10);
+  delayMicroseconds(5);
   digitalWrite(Trigger, LOW);
 
   t = pulseIn(Echo, HIGH); //Obtenemos el ancho del pulso
@@ -25,5 +25,5 @@ void loop() {
 
   Serial.print(d);
   Serial.println();
-  delay(100);
+  delay(10);
 }
