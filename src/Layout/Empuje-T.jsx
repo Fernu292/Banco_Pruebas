@@ -37,7 +37,7 @@ const EmpujeSerial = () => {
       </div>
       <p>Empujes: {empuje.length}</p>
       <p>Tiempos: {times.length}</p>
-      <LinearPlot data={empuje} xData={times} id={'Empuje'} xLabel={'Tiempo[ms]'} yLabel={'Empuje [Kg]'} />
+      <LinearPlot data={empuje} xData={times} id={'Empuje'} xLabel={'Tiempo[ds]'} yLabel={'Empuje [N]'} />
     </div>
   );
 };

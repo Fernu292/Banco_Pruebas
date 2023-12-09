@@ -60,7 +60,7 @@ const EstacionContext_Provider = ({children}) => {
             if(clicks==1){
                 const timeOutClean = setTimeout(()=>{
                     cleanData();
-                },55);
+                },50);
                 return ()=> clearTimeout(timeOutClean);
             }
         }
@@ -73,7 +73,7 @@ const EstacionContext_Provider = ({children}) => {
                 fetchData();              
                 setTime((before)=>before+1);
                 setTimes([...times, time]);
-            },10);
+            },7);
             return ()=> clearInterval(intervalID);
         }
     }, [init, serverInit, time]);

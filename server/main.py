@@ -11,7 +11,7 @@ CORS(app)  # Permitir solicitudes desde cualquier origen
 
 class SerialReader:
     def __init__(self, port_name="/dev/ttyACM0"):
-        self.ser = serial.Serial(port_name, baudrate=9600, timeout=2)
+        self.ser = serial.Serial(port_name, baudrate=9600, timeout=0.02)
         self.data_list = [0]
         self.isInit = False
         self.stop_thread = False
@@ -30,20 +30,24 @@ class SerialReader:
                 line = self.ser.readline().decode('utf-8').strip()
 
                 if line:
-                    distance = float(line)
-                    if (distance - self.data_list[-1]) > 10:
-                        self.data_list.append(self.data_list[-1])
-                    else:
-                        self.data_list.append(distance)
+                    empuje = float(line)
+                    fuerza = empuje*9.81
+                    if (fuerza - self.data_list[-1])>50:
+                        if(fuerza>self.data_list[-1]):
+                            self.data_list.append(self.data_list[-1])
+                        else:
+                            self.data_list.append(fuerza)
+                    self.data_list.append(fuerza)
                 if not self.isInit:
                     break
         except Exception as e:
             print(f'Error en el hilo de la lectura serial: {e}')
         finally:
+            self.save_data()
             print("\nFinalizando prueba")
     
     def save_data(self):
-        self.data_dict = {"distance": self.data_list}
+        self.data_dict = {"Empuje": self.data_list}
         df = pd.DataFrame(self.data_dict)
         df.to_csv(f"/home/fernu/Projects/Estacion_Terrena_Electron/server/Data/{datetime.now()}_PruebaBanco.cvs")
         self.ser.close()
