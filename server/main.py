@@ -32,11 +32,13 @@ class SerialReader:
                 if line:
                     empuje = float(line)
                     fuerza = empuje*9.81
+                    
                     if (fuerza - self.data_list[-1])>50:
                         if(fuerza>self.data_list[-1]):
                             self.data_list.append(self.data_list[-1])
-                        else:
+                        elif (self.data_list[-1]>fuerza):
                             self.data_list.append(fuerza)
+                            
                     self.data_list.append(fuerza)
                 if not self.isInit:
                     break

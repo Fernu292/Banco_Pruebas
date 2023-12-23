@@ -1,59 +1,28 @@
- 
-#include "HX711.h"
- 
-// Pin de datos y de reloj
-byte pinData = 4;
-byte pinClk = 6;
- 
-HX711 bascula;
- 
-// Parámetro para calibrar el peso y el sensor
-float factor_calibracion = 22250.0; //Este valor del factor de calibración funciona para mi. El tuyo probablemente será diferente.
- 
+const int Echo = 2;
+const int Trigger = 4;
+
 void setup() {
+  // put your setup code here, to run once:
   Serial.begin(9600);
-  Serial.println("HX711 programa de calibracion");
-  Serial.println("Quita cualquier peso de la bascula");
-  Serial.println("Una vez empiece a mostrar informacion de medidas, coloca un peso conocido encima de la bascula");
-  Serial.println("Presiona + para incrementar el factor de calibracion");
-  Serial.println("Presiona - para disminuir el factor de calibracion");
- 
-  // Iniciar sensor
-  bascula.begin(pinData, pinClk);
- 
-  // Aplicar la calibración
-  bascula.set_scale();
-  // Iniciar la tara
-  // No tiene que haber nada sobre el peso
-  bascula.tare();
- 
-  // Obtener una lectura de referencia
-  long zero_factor = bascula.read_average();
-  // Mostrar la primera desviación
-  Serial.print("Zero factor: ");
-  Serial.println(zero_factor);
+  pinMode(Echo, INPUT);
+  pinMode(Trigger, OUTPUT);
+  digitalWrite(Trigger, LOW);
 }
- 
+
 void loop() {
- 
-  // Aplicar calibración
-  bascula.set_scale(factor_calibracion);
- 
-  // Mostrar la información para ajustar el factor de calibración
-  Serial.print("Leyendo: ");
-  Serial.print(bascula.get_units(), 3);
-  Serial.print(" kgs");
-  Serial.print(" factor_calibracion: ");
-  Serial.print(factor_calibracion);
+  // put your main code here, to run repeatedly:
+  long t; //timepo que demora en llegar el eco
+  long d; //distancia en centimetros
+
+  digitalWrite(Trigger, HIGH);
+  delayMicroseconds(50);          //Enviamos un pulso de 10us
+  digitalWrite(Trigger, LOW);
+  
+  t = pulseIn(Echo, HIGH); //obtenemos el ancho del pulso
+  d = t/59;             //escalamos el tiempo a una distancia en cm
+  
+  Serial.print(d);      //Enviamos serialmente el valor de la distancia
   Serial.println();
- 
-  // Obtener información desde el monitor serie
-  if (Serial.available())
-  {
-    char temp = Serial.read();
-    if (temp == '+')
-      factor_calibracion += 10;
-    else if (temp == '-')
-      factor_calibracion -= 10;
-  }
+  delay(100);          //Hacemos una pausa de 100ms
 }
+

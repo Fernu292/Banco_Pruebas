@@ -8,7 +8,7 @@ byte pinClk = 6;
 HX711 bascula;
  
 // Parámetro para calibrar el peso y el sensor
-float factor_calibracion = 22350.0; //Este valor del factor de calibración funciona para mi. El tuyo probablemente será diferente.
+float factor_calibracion = 22350.0; //Este valor del factor de calibración funciona para mi.
  
 void setup() {
   Serial.begin(9600); 
